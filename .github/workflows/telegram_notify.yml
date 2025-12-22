@@ -11,13 +11,10 @@ jobs:
 
     steps:
       - name: Send message to Telegram
+        - name: Send message to Telegram
         run: |
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_MONITOR_TOKEN }}/sendMessage" \
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
             -d parse_mode="HTML" \
-            -d text="<b>User:</b> ${{ github.actor }} committed the repository <code>${{ github.repository }}</code>
-          <b>Time:</b> $(date +'%Y-%m-%d %H:%M:%S')
-
-          <b>Commit header:</b> ${{ github.event.head_commit.message }}
-
-          <a href='${{ github.event.head_commit.url }}'>View Commit Details</a>"
+            -d disable_web_page_preview="true" \
+            -d text="👤 <a href='https://github.com/${{ github.actor }}'>${{ github.actor }}</a> pushed to 📁 <a href='https://github.com/${{ github.repository }}'>${{ github.repository_owner }}</a>: 📝 <i>'${{ github.event.head_commit.message }}'</i> (<a href='${{ github.event.head_commit.url }}'>view commit</a>)"

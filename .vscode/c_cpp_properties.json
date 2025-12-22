@@ -3,11 +3,11 @@
         {
             "name": "STM32F4",
             "includePath": [
-                "${workspaceFolder}/config",
-                "${workspaceFolder}/app/inc",
-                "${workspaceFolder}/platform/hal/Inc",
-                "${workspaceFolder}/platform/cmsis/CMSIS/Include",
-                "${workspaceFolder}/platform/cmsis/CMSIS/Device/ST/STM32F4xx/Include",
+                "${workspaceFolder}/examples/stm32_f4x/config",
+                "${workspaceFolder}/examples/stm32_f4x/app/inc",
+                "${workspaceFolder}/examples/stm32_f4x/platform/hal/Inc",
+                "${workspaceFolder}/examples/stm32_f4x/platform/cmsis/CMSIS/Include",
+                "${workspaceFolder}/examples/stm32_f4x/platform/cmsis/CMSIS/Device/ST/STM32F4xx/Include",
                 "${workspaceFolder}/**"
             ],
             "defines": [

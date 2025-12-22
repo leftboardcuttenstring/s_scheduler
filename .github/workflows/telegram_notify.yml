@@ -11,7 +11,6 @@ jobs:
 
     steps:
       - name: Send message to Telegram
-        - name: Send message to Telegram
         run: |
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_MONITOR_TOKEN }}/sendMessage" \
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \

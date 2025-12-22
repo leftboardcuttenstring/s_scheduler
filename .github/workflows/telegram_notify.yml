@@ -20,13 +20,13 @@ jobs:
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
             -d parse_mode="HTML" \
             -d disable_web_page_preview="true" \
-            -d text="👤 User ${{ github.actor }}</a> committed into 📁 <b>${{ github.repository }}</b>
+            -d text="User <a href='https://github.com/${{ github.actor }}'>${{ github.actor }}</a> committed into 📁 <b>${{ github.repository }}</b>
 
           <b>Commit header:</b> $HEADER
           <b>Commit description:</b> <i>$DESC</i>
 
-          🔗 <a href='https://github.com/${{ github.repository }}'>Link to repository</a>
-          🔗 <a href='${{ github.event.head_commit.url }}'>Link to commit</a>
-          🔗 <a href='https://github.com/${{ github.actor }}'>Link to user profile</a>
+          <a href='https://github.com/${{ github.repository }}'>Link to repository</a>
+          <a href='${{ github.event.head_commit.url }}'>Link to commit</a>
+          <a href='https://github.com/${{ github.actor }}'>Link to user profile</a>
 
           #log"

@@ -20,7 +20,7 @@ jobs:
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
             -d parse_mode="HTML" \
             -d disable_web_page_preview="true" \
-            -d text="👤 User <a href='https://github.com/${{ github.actor }}'>${{ github.actor }}</a> committed into 📁 <b>${{ github.repository }}</b>
+            -d text="👤 User ${{ github.actor }}</a> committed into 📁 <b>${{ github.repository }}</b>
 
           <b>Commit header:</b> $HEADER
           <b>Commit description:</b> <i>$DESC</i>

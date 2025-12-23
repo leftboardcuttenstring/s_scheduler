@@ -12,6 +12,7 @@ CFLAGS = $(CPU) -O2 -Wall
 CFLAGS += -Iapp/inc
 CFLAGS += -Iconfig
 CFLAGS += -Iplatform/hal/Inc
+CFLAGS += -I../../scheduler/inc
 CFLAGS += -Iplatform/cmsis/CMSIS/Include
 CFLAGS += -Iplatform/cmsis/CMSIS/Device/ST/STM32F4xx/Include
 CFLAGS += -DUSE_HAL_DRIVER $(DEFS)
@@ -26,7 +27,9 @@ platform/cmsis/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c \
 platform/hal/Src/stm32f4xx_hal.c \
 platform/hal/Src/stm32f4xx_hal_gpio.c \
 platform/hal/Src/stm32f4xx_hal_rcc.c \
-platform/hal/Src/stm32f4xx_hal_cortex.c
+platform/hal/Src/stm32f4xx_hal_cortex.c \
+platform/hal/Src/stm32f4xx_hal_uart.c \
+platform/hal/Src/stm32f4xx_hal_dma.c
 
 all: $(TARGET).elf
 

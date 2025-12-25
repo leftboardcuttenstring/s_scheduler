@@ -52,4 +52,8 @@ void sch_task_create(sch_task_t* const task, sch_task_dispatch_fn dispatch, sch_
  */
 void sch_task_run(sch_task_t* const task, void* param);
 
+void sch_task_run();
+void sch_task_init();
+
+
 #endif

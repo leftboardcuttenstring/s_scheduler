@@ -10,7 +10,6 @@ void SystemClock_Config(void);
 void MX_GPIO_Init(void);
 void MX_USART2_UART_Init(void);
 void sch_task_dispatch(sch_task_t* task);
-void SysTick_Handler(void);
 
 int main(void)
 {
@@ -77,9 +76,9 @@ void sch_task_dispatch(sch_task_t* task) {
 
 }
 
-void SysTick_Handler(void) {
-    HAL_IncTick();
-}
+// void SysTick_Handler(void) {
+//     HAL_IncTick();
+// }
 
 void _init(void) {}
 

@@ -1,6 +1,10 @@
 /* Указываем конец стека (начало RAM + размер RAM) */
 _estack = 0x20020000;    /* Конец 128KB RAM */
 
+_Min_Stack_Size = 0x400;
+_Min_Heap_Size  = 0x200;
+
+
 MEMORY
 {
   FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 512K

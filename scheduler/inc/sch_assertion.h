@@ -60,9 +60,9 @@ extern "C" {
  * 
  */
 #ifdef SCH_ASSERTION
-    #define SCH_ASSERT(expr) ((expr) ? ((void)0) : sch_fault_hadnler())
+    #define SCH_ASSERT(expr) ((expr) ? ((void)0) : sch_fault_handler())
 #else
-    #define SCH_ASSERT(expr) ((expr) ? ((void)0) : sch_fault_hadnler())
+    #define SCH_ASSERT(expr) ((expr) ? ((void)0) : sch_fault_handler())
 #endif
 
 /*--Definition of functions--------------------------------------------------*/
@@ -78,7 +78,7 @@ extern "C" {
  * 
  * @return void 
  */
-SCH_NORETURN_FUNC_ATTRIBUTE void sch_fault_handler(void);
+__WEAK SCH_NORETURN_FUNC_ATTRIBUTE void sch_fault_handler(void);
 
 /*---------------------------------------------------------------------------*/
 

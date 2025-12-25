@@ -7,7 +7,8 @@
  * 
  */
 
-#include "../inc/sch_assertion.h"
+#include "sch.h"
+#include "sch_assertion.h"
 
 /**
  * @brief Handler for an error related to the 
@@ -18,4 +19,15 @@
 __WEAK SCH_NORETURN_FUNC_ATTRIBUTE void sch_fault_handler(void) {
     __disable_irq();
     while (1) { }
+}
+
+/**
+ * @brief A function for preparing the execution 
+ * environment for task execution
+ * 
+ * @param task 
+ * @return void
+ */
+__WEAK void sch_task_presetting(sch_task_t* const task) {
+    
 }

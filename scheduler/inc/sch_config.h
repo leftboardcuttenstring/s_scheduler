@@ -10,6 +10,6 @@
 #ifndef SCH_CONFIG_H
 #define SCH_CONFIG_H
 
-
+#define SCH_MAX_QUANTITY_OF_TASKS 3
 
 #endif

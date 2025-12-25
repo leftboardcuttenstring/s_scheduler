@@ -10,28 +10,25 @@ void SystemClock_Config(void);
 void MX_GPIO_Init(void);
 void MX_USART2_UART_Init(void);
 void sch_task_dispatch(sch_task_t* task);
+void sch_task_init(sch_task_t* task);
 
 int main(void)
 {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_USART2_UART_Init();
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();
 
-    sch_task_t sch_task;
-    sch_task.priority = 10;
-    sch_task.irq = 0;
-    sch_task.task_dispatch = sch_task_dispatch;
+  sch_task_t sch_task;
+  //const sch_task_t* ptr = &sch_task;
+  sch_task_create(&sch_task, 10, 10, sch_task_dispatch, sch_task_init);
+  sch_task_run(&sch_task, NULL);
 
-    char msg[64];
-    snprintf(msg, sizeof(msg), "Priority: %u, IRQ: %u\r\n", (unsigned int)sch_task.priority, (unsigned int)sch_task.irq);
-    HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 100);
-
-    while (1)
-    {
-        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        HAL_Delay(1000);
-    }
+  while (1)
+  {
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+    HAL_Delay(1000);
+  }
 }
 
 void MX_USART2_UART_Init(void)
@@ -73,14 +70,16 @@ void MX_GPIO_Init(void)
 }
 
 void sch_task_dispatch(sch_task_t* task) {
+  HAL_UART_Transmit(&huart2, (uint8_t*)"Hello\r\n", strlen("Hello\r\n"), 100);
+}
+
+void sch_task_init(sch_task_t* task) {
 
 }
 
-// void SysTick_Handler(void) {
-//     HAL_IncTick();
-// }
+void _init(void) {
 
-void _init(void) {}
+}
 
 
 

@@ -36,3 +36,16 @@ The sequence:
 1. At the start - some quantity of active tasks
 2. Sorting tasks by theirs prioroty
 3. Processing 
+  
+
+# What interfaces does SST give to ya?
+Welp, this question is connected to structure of tasking in SST. At the start, you have to create an object
+of the task structure - by your hands, or using some function (in SST you can create a task via `SST_Task_ctor`
+function. That will provide to you the way how you can connect functions of daspatching and init to the main
+structure's object (yea, im about the main your task in form of structure's object))  
+At this moment (at the moment when you call `SST_Task_ctor` function) you need to have dispatch and preparing.
+within the terms of that repo it's name is `init` (the function what prepares the execution environment for 
+task execution).
+What are they?
+1. Dispatching fucntion - the main fucntion when you have to code how your process will work;
+2. Init function - yes, I said it alreay, that stuff prepares the execution environment for task execution;

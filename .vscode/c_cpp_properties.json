@@ -8,8 +8,8 @@
                 "${workspaceFolder}/examples/stm32f4x/platform/hal/Inc",
                 "${workspaceFolder}/examples/stm32f4x/platform/cmsis/CMSIS/Include",
                 "${workspaceFolder}/examples/stm32f4x/platform/cmsis/CMSIS/Device/ST/STM32F4xx/Include",
-                "${workspaceFolder}/scheduler/inc",
-                "${workspaceFolder}/scheduler/src",
+                "${workspaceFolder}/sch/inc",
+                "${workspaceFolder}/sch/src",
                 "${workspaceFolder}/**"
             ],
             "defines": [

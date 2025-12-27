@@ -19,9 +19,12 @@
 
 typedef struct sch_task_t sch_task_t;
 
+extern int32_t sch_system_tasks_ready_set;
+extern int32_t sch_preempt_tasks_ready_set;
+
 /*--Definition of typedefs----------------------------------------------------*/
 
-typedef uint8_t sch_task_priority;
+typedef int8_t sch_task_priority;
 typedef uint8_t sch_irq;
 
 typedef void (*sch_task_dispatch_fn)(sch_task_t* task);

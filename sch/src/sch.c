@@ -11,6 +11,9 @@
 
 #include "sch.h"
 
+int32_t sch_system_tasks_ready_set = 0;
+int32_t sch_preempt_tasks_ready_set = 0;
+
 sch_task_t queue[SCH_MAX_QUANTITY_OF_TASKS] = {0};
 
 /**
@@ -42,4 +45,17 @@ void sch_task_create(sch_task_t* const task, sch_task_priority priority, sch_irq
 void sch_task_run(sch_task_t* const task, void* param) {
     SCH_ASSERT((task->priority > 0) && (task->priority < SCH_MAX_QUANTITY_OF_TASKS));
     (*task->task_dispatch)(task);
+}
+
+/**
+ * @brief Function for activating the task
+ * 
+ * @param task 
+ */
+void sch_task_activate(sch_task_t* const task) {
+    if (task->priority < 0) {
+        sch_system_tasks_ready_set |= (1U << (uint8_t)(-task->priority - 1));
+    } else {
+        sch_preempt_tasks_ready_set |= (1U << (uint8_t)(task->priority - 1));
+    }
 }

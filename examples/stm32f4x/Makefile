@@ -19,8 +19,8 @@ CFLAGS += -Iconfig
 CFLAGS += -Iplatform/hal/Inc
 CFLAGS += -Iplatform/cmsis/CMSIS/Include
 CFLAGS += -Iplatform/cmsis/CMSIS/Device/ST/STM32F4xx/Include
-CFLAGS += -I../../scheduler/inc
-CFLAGS += -I../../scheduler/src
+CFLAGS += -I../../sch/inc
+CFLAGS += -I../../sch/src
 CFLAGS += $(DEFS)
 
 ASFLAGS = $(MCU) $(OPT)
@@ -47,7 +47,7 @@ app/src/stm32f4xx_hal_msp.c \
 app/src/stm32f4xx_it.c \
 app/src/syscalls.c \
 app/src/sysmem.c \
-../../scheduler/src/sch.c
+../../sch/src/sch.c
 
 all: $(TARGET).elf
 

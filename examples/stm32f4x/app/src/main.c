@@ -12,6 +12,19 @@ void MX_USART2_UART_Init(void);
 void sch_task_dispatch(sch_task_t* task);
 void sch_task_init(sch_task_t* task);
 
+void echo_task_dispatch(sch_task_t* task);
+void echo_task_init(sch_task_t* task);
+
+void echo_task_dispatch(sch_task_t* task) {
+  char buf[40] = {0};
+  snprintf(buf, sizeof(buf), "system: %ld,\r\npreempt:%ld\r\n", sch_system_tasks_ready_set, sch_preempt_tasks_ready_set);
+  HAL_UART_Transmit(&huart2, (uint8_t*)buf, strlen(buf), HAL_MAX_DELAY);
+}
+
+void echo_task_init(sch_task_t* task) {
+
+}
+
 int main(void)
 {
   HAL_Init();
@@ -19,15 +32,26 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
 
-  sch_task_t sch_task;
-  //const sch_task_t* ptr = &sch_task;
+  /*sch_task_t sch_task;
   sch_task_create(&sch_task, 10, 10, sch_task_dispatch, sch_task_init);
-  sch_task_run(&sch_task, NULL);
+  sch_task_run(&sch_task, NULL);*/
+
+  sch_task_t first_task;
+  sch_task_create(&first_task, -3, 0, sch_task_dispatch, sch_task_init);
+  sch_task_activate(&first_task);
+
+  sch_task_t second_task;
+  sch_task_create(&second_task, 3, 0, sch_task_dispatch, sch_task_init);
+  sch_task_activate(&second_task);
+
+  sch_task_t echo_data;
+  sch_task_create(&echo_data, 2, 3, echo_task_dispatch, echo_task_init);
+  sch_task_activate(&echo_data);
+  sch_task_run(&echo_data, NULL);
 
   while (1)
   {
-    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-    HAL_Delay(1000);
+    
   }
 }
 

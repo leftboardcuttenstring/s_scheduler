@@ -7,8 +7,8 @@
  * 
  */
 
+#include "sch_config.h"
 #include "sch.h"
-#include "sch_assertion.h"
 
 /**
  * @brief Handler for an error related to the 

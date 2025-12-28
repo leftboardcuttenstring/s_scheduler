@@ -1,0 +1,2 @@
+#define SCH_TASK_SIZE 12
+#define SCH_PRIORITY_OFFSET 8

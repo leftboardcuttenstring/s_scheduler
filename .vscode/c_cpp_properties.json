@@ -2,6 +2,7 @@
     "configurations": [
         {
             "name": "STM32F4",
+            "cppStandard": "c++17",
             "includePath": [
                 "${workspaceFolder}/examples/stm32f4x/config",
                 "${workspaceFolder}/examples/stm32f4x/app/inc",
@@ -17,7 +18,7 @@
                 "STM32F411xE"
             ],
             "compilerPath": "/home/mike/bin/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
-            "intelliSenseMode": "linux-gcc-arm",
+            "intelliSenseMode": "gcc-arm",
             "cStandard": "c11"
         }
     ],

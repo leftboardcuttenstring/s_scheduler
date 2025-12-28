@@ -47,7 +47,8 @@ app/src/stm32f4xx_hal_msp.c \
 app/src/stm32f4xx_it.c \
 app/src/syscalls.c \
 app/src/sysmem.c \
-../../sch/src/sch.c
+../../sch/src/sch.c \
+../../sch/port/stm32f4xx/sch_find_most_significant_task.s \
 
 all: $(TARGET).elf
 

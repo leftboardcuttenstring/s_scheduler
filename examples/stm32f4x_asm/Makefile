@@ -1,0 +1,70 @@
+TARGET = firmware
+
+include config/chip.mk
+
+CC = arm-none-eabi-gcc
+OBJCOPY = arm-none-eabi-objcopy
+
+CPU = -mcpu=cortex-m4
+FPU = -mfpu=fpv4-sp-d16
+FLOAT-ABI = -mfloat-abi=hard
+MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
+
+OPT = -Og
+
+CFLAGS  = $(MCU) $(OPT) -Wall -fdata-sections -ffunction-sections
+CFLAGS += -DUSE_HAL_DRIVER
+CFLAGS += -Iapp/inc
+CFLAGS += -Iconfig
+CFLAGS += -Iplatform/hal/Inc
+CFLAGS += -Iplatform/cmsis/CMSIS/Include
+CFLAGS += -Iplatform/cmsis/CMSIS/Device/ST/STM32F4xx/Include
+CFLAGS += -I../../sch/inc
+CFLAGS += -I../../sch/src
+CFLAGS += -Iapp/src/asm
+CFLAGS += $(DEFS)
+
+all: sch_asm_offsets.h $(TARGET).elf
+
+ASFLAGS = $(MCU) $(OPT)
+
+LDFLAGS = -T platform/linker/$(LDSCRIPT) \
+          -nostartfiles \
+          --specs=nosys.specs \
+          --specs=nano.specs \
+          -Wl,--gc-sections
+
+SRC = \
+app/src/main.c \
+config/clock.c \
+platform/startup/$(STARTUP) \
+platform/cmsis/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c \
+platform/hal/Src/stm32f4xx_hal.c \
+platform/hal/Src/stm32f4xx_hal_gpio.c \
+platform/hal/Src/stm32f4xx_hal_rcc.c \
+platform/hal/Src/stm32f4xx_hal_rcc_ex.c \
+platform/hal/Src/stm32f4xx_hal_cortex.c \
+platform/hal/Src/stm32f4xx_hal_uart.c \
+platform/hal/Src/stm32f4xx_hal_dma.c \
+app/src/stm32f4xx_hal_msp.c \
+app/src/stm32f4xx_it.c \
+app/src/syscalls.c \
+app/src/sysmem.c \
+../../sch/src/sch.c \
+../../sch/port/stm32f4xx/sch_find_most_significant_task.s \
+app/src/asm/create_tasks.S \
+
+sch_asm_offsets.h: app/src/asm/gen_offsets.c
+	$(CC) $(CFLAGS) -S $< -o - | \
+	sed -n 's/.*->[[:space:]]*\([^[:space:]]*\)[[:space:]]*[#$$]\?\([0-9]*\).*/#define \1 \2/p' > app/src/asm/$@
+
+all: $(TARGET).elf
+
+$(TARGET).elf:
+	mkdir -p build
+	$(CC) $(CFLAGS) $(SRC) $(LDFLAGS) -o build/$@
+	$(OBJCOPY) -O ihex build/$@ build/$(TARGET).hex
+	$(OBJCOPY) -O binary build/$@ build/$(TARGET).bin
+
+clean:
+	rm -rf build

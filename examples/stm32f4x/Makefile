@@ -49,6 +49,7 @@ app/src/syscalls.c \
 app/src/sysmem.c \
 ../../sch/src/sch.c \
 ../../sch/port/stm32f4xx/sch_find_most_significant_task.s \
+../../sch/port/stm32f4xx/sch_context_change.s \
 
 all: $(TARGET).elf
 

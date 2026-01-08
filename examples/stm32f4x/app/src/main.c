@@ -26,6 +26,11 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
 
+  sch_task_t first_task;
+  sch_task_t second_task;
+  sch_task_t echo_data;
+  sch_task_t another_system_task;
+
   sch_task_create(&first_task, -3, 0, sch_task_dispatch, sch_task_init);
   sch_task_activate(&first_task);
 

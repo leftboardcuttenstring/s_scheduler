@@ -14,7 +14,7 @@
 int32_t sch_system_tasks_ready_set = 0;
 int32_t sch_preempt_tasks_ready_set = 0;
 
-sch_task_t queue[SCH_MAX_QUANTITY_OF_TASKS] = {0};
+sch_task_t* sch_task_registry[SCH_MAX_QUANTITY_OF_TASKS] = {0};
 
 /**
  * @brief Function for creating a task

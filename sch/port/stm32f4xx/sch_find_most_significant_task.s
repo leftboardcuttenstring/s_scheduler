@@ -13,3 +13,4 @@ sch_find_most_significant_task:
 .is_data_zero:
     mov r0, #0
     bx lr
+

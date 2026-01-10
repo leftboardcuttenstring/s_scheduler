@@ -19,6 +19,10 @@ void sch_task_init(sch_task_t* task);
 void echo_task_dispatch(sch_task_t* task);
 void echo_task_init(sch_task_t* task);
 
+/*--External objects-----------------------------------------------------------*/
+
+extern volatile uint8_t sch_context_change_interrupt_check;
+
 int main(void)
 {
   HAL_Init();
@@ -26,7 +30,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
 
-  sch_task_t first_task;
+  /*sch_task_t first_task;
   sch_task_t second_task;
   sch_task_t echo_data;
   sch_task_t another_system_task;
@@ -37,16 +41,29 @@ int main(void)
   sch_task_create(&second_task, 3, 0, sch_task_dispatch, sch_task_init);
   sch_task_activate(&second_task);
 
-  sch_task_create(&another_system_task, 2, 0, sch_task_dispatch, sch_task_init);
-  sch_task_activate(&second_task);
+  sch_task_create(&another_system_task, 4, 0, sch_task_dispatch, sch_task_init);
+  sch_task_activate(&another_system_task);
 
   sch_task_create(&echo_data, -4, 3, echo_task_dispatch, echo_task_init);
   sch_task_activate(&echo_data);
-  sch_task_run(&echo_data, NULL);
+  sch_task_run(&echo_data, NULL);*/
 
-  char buf[40] = {0};
-  snprintf(buf, sizeof(buf), "%d\r\n", sch_find_most_significant_task(sch_system_tasks_ready_set));
-  HAL_UART_Transmit(&huart2, (uint8_t*)buf, strlen(buf), HAL_MAX_DELAY);
+  /*char buf[40] = {0};
+  snprintf(buf, sizeof(buf), "%d\r\n", sch_find_most_significant_task(sch_preempt_tasks_ready_set));
+  HAL_UART_Transmit(&huart2, (uint8_t*)buf, strlen(buf), HAL_MAX_DELAY);*/
+
+  sch_context_change_interrupt_check = 1;
+  sch_context_change();
+  if (sch_context_change_interrupt_check == 0) 
+  {
+    HAL_UART_Transmit(&huart2, (uint8_t*)"sch_context_change_interrupt_check = 0", \
+    strlen("sch_context_change_interrupt_check = 0"), HAL_MAX_DELAY);
+  } else 
+  {
+    HAL_UART_Transmit(&huart2, (uint8_t*)"sch_context_change_interrupt_check != 0", \
+    strlen("sch_context_change_interrupt_check != 0"), HAL_MAX_DELAY);
+  }
+
 
   while (1)
   {

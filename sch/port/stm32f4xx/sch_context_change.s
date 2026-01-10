@@ -6,12 +6,20 @@
 .equ __sch_icsr, (__sch_scs_base + __sch_icsr_offset)
 .equ __sch_icsr_pendvset, (1 << 28)
 
+@ -----------------------------------------------------------------------------
+
+.section .data
+.global sch_context_change_interrupt_check
+.align 2
+sch_context_change_interrupt_check:
+    .byte 1
+    .align 2
+
+@ -----------------------------------------------------------------------------
+
 .section .text.sch_context_change
 
-.type sch_context_change, %function
 .type sch_call_dispatch, %function
-
-
 .global sch_call_dispatch
 sch_call_dispatch:
     ldr r1, =sch_task_registry
@@ -22,10 +30,18 @@ sch_call_dispatch:
     blx r3
     bx lr
 
-
+.type sch_context_change, %function
 .global sch_context_change
 sch_context_change:
     ldr r0, =__sch_icsr
     ldr r1, =__sch_icsr_pendvset
+    str r1, [r0]
+    bx lr
+
+.type sch_context_change_interrupt_handler, %function
+.global sch_context_change_interrupt_handler
+sch_context_change_interrupt_handler:
+    ldr r0, =sch_context_change_interrupt_check
+    mov r1, #0
     str r1, [r0]
     bx lr

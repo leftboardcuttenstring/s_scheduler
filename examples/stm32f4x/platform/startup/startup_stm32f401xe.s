@@ -138,7 +138,7 @@ g_pfnVectors:
   .word  SVC_Handler
   .word  DebugMon_Handler
   .word  0
-  .word  PendSV_Handler
+  .word  sch_context_change_interrupt_handler
   .word  SysTick_Handler
   
   /* External Interrupts */

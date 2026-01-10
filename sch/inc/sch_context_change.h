@@ -7,6 +7,22 @@ extern "C" {
 
 #include "sch_common.h"
 
+/*--Fucntions for debugging the work of interrupt of changing the context----*/
+
+/**
+ * @brief Function for handling the interrupt of command of
+ * changing the context
+ * 
+ * @return void 
+ */
+__WEAK void sch_context_change_interrupt_handler(void);
+
+/*--Objects for defug--------------------------------------------------------*/
+
+extern volatile uint8_t sch_context_change_interrupt_check;
+
+/*---------------------------------------------------------------------------*/
+
 /**
  * @brief Function for finding the most significant task flag
  * in the "registry" what'd been imaged in variable
@@ -22,7 +38,7 @@ uint8_t sch_find_most_significant_task(uint32_t sch_system_tasks_ready_set);
 void sch_context_change(void);
 
 /**
- * @brief Function for planning goddammit
+ * @brief Function for calling the dispatch function
  * 
  */
 void sch_call_dispatch(uint8_t sch_most_significant_task);

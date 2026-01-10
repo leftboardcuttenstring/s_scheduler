@@ -8,6 +8,7 @@ sch_find_most_significant_task:
     cbz r0, .is_data_zero
     clz r0, r0
     rsb r0, r0, #31
+    add r0, #1
     bx lr
 
 .is_data_zero:
